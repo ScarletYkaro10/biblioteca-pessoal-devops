@@ -1,0 +1,25 @@
+name: CI Pipeline - Biblioteca Pessoal
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Compilar e Testar com Maven
+        run: mvn -B verify
+        working-directory: ./biblioteca-pessoal
